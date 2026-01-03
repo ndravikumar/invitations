@@ -1,7 +1,7 @@
 import { MessageCircle, Heart } from "lucide-react";
 
 const Footer = () => {
-  const whatsappNumber = "919876543210";
+  const whatsappNumber = "919603525393";
 
   return (
     <footer className="py-10 bg-foreground text-primary-foreground">

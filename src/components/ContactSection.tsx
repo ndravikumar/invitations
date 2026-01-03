@@ -1,7 +1,7 @@
 import { MessageCircle, Phone, MapPin } from "lucide-react";
 
 const ContactSection = () => {
-  const whatsappNumber = "919876543210";
+  const whatsappNumber = "919603525393";
   const whatsappMessage = encodeURIComponent(
     "Hi! I'm interested in getting a digital wedding invitation website."
   );
@@ -45,7 +45,7 @@ const ContactSection = () => {
               <h4 className="font-semibold text-foreground mb-1">
                 Call / WhatsApp
               </h4>
-              <p className="text-muted-foreground">+91 98765 43210</p>
+              <p className="text-muted-foreground">+91  96035 25393</p>
             </div>
             <div className="p-6 rounded-xl bg-card border border-border">
               <MapPin size={24} className="text-accent mx-auto mb-3" />

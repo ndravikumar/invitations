@@ -23,7 +23,7 @@ const TemplateCard = ({
   previewUrl = "#",
   index,
 }: TemplateCardProps) => {
-  const whatsappNumber = "919876543210";
+  const whatsappNumber = "919603525393";
   const whatsappMessage = encodeURIComponent(
     `Hi! I'm interested in the "${name}" wedding invitation template.`
   );

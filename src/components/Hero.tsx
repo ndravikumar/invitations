@@ -1,7 +1,7 @@
 import { MessageCircle, ArrowDown } from "lucide-react";
 
 const Hero = () => {
-  const whatsappNumber = "919876543210"; // Replace with actual number
+  const whatsappNumber = "919603525393";
   const whatsappMessage = encodeURIComponent(
     "Hi! I'm interested in a digital wedding invitation website."
   );
