@@ -1,118 +1,74 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { Music2, Pause, Share2 } from "lucide-react";
-
-const playBellTone = async (audioContext: AudioContext) => {
-  const now = audioContext.currentTime;
-  const frequencies = [523.25, 659.25, 783.99];
-
-  frequencies.forEach((frequency, index) => {
-    const oscillator = audioContext.createOscillator();
-    const gain = audioContext.createGain();
-
-    oscillator.type = "sine";
-    oscillator.frequency.value = frequency;
-    gain.gain.setValueAtTime(0.0001, now);
-    gain.gain.exponentialRampToValueAtTime(0.18, now + 0.02 + index * 0.02);
-    gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.8 + index * 0.1);
-
-    oscillator.connect(gain);
-    gain.connect(audioContext.destination);
-    oscillator.start(now + index * 0.02);
-    oscillator.stop(now + 1.9 + index * 0.1);
-  });
-};
+import { AnimatePresence, motion } from "framer-motion";
+import { MessageCircle, Link2, Share2 } from "lucide-react";
 
 interface InviteControlsProps {
-  title: string;
+  musicOn: boolean;
+  onToggleMusic: () => void;
+  onCopyLink: () => void;
+  whatsappUrl: string;
   dark?: boolean;
-  autoBell?: boolean;
+  copied?: boolean;
 }
 
-const InviteControls = ({ title, dark = false, autoBell = false }: InviteControlsProps) => {
-  const audioContextRef = useRef<AudioContext | null>(null);
-  const [musicOn, setMusicOn] = useState(false);
-  const [shareState, setShareState] = useState<"idle" | "copied">("idle");
-
-  const buttonClassName = useMemo(
-    () =>
-      dark
-        ? "border-white/15 bg-white/10 text-white hover:bg-white/20"
-        : "border-black/10 bg-white/80 text-stone-900 hover:bg-white",
-    [dark],
-  );
-
-  useEffect(() => {
-    if (!autoBell) {
-      return;
-    }
-
-    const timer = window.setTimeout(async () => {
-      try {
-        const AudioContextCtor = window.AudioContext;
-        if (!AudioContextCtor) {
-          return;
-        }
-        audioContextRef.current = audioContextRef.current ?? new AudioContextCtor();
-        await playBellTone(audioContextRef.current);
-        setMusicOn(true);
-      } catch {
-        setMusicOn(false);
-      }
-    }, 400);
-
-    return () => window.clearTimeout(timer);
-  }, [autoBell]);
-
-  const handleMusicToggle = async () => {
-    try {
-      const AudioContextCtor = window.AudioContext;
-      if (!AudioContextCtor) {
-        return;
-      }
-
-      audioContextRef.current = audioContextRef.current ?? new AudioContextCtor();
-      await playBellTone(audioContextRef.current);
-      setMusicOn((current) => !current);
-    } catch {
-      setMusicOn(false);
-    }
-  };
-
-  const handleShare = async () => {
-    const url = window.location.href;
-    try {
-      if (navigator.share) {
-        await navigator.share({ title, url });
-      } else {
-        await navigator.clipboard.writeText(url);
-        setShareState("copied");
-        window.setTimeout(() => setShareState("idle"), 1800);
-      }
-    } catch {
-      setShareState("idle");
-    }
-  };
+const InviteControls = ({
+  musicOn,
+  onToggleMusic,
+  onCopyLink,
+  whatsappUrl,
+  dark = false,
+  copied = false,
+}: InviteControlsProps) => {
+  const baseClassName = dark
+    ? "border-white/15 bg-black/20 text-white hover:bg-black/35"
+    : "border-black/10 bg-white/80 text-stone-900 hover:bg-white";
 
   return (
-    <div className="fixed right-4 top-4 z-50 flex gap-3">
-      <button
+    <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-3 sm:bottom-6 sm:right-6">
+      <motion.button
+        whileTap={{ scale: 0.96 }}
+        whileHover={{ y: -2 }}
         type="button"
-        onClick={handleMusicToggle}
-        className={`inline-flex h-11 w-11 items-center justify-center rounded-full border shadow-lg backdrop-blur transition ${buttonClassName}`}
+        onClick={onToggleMusic}
+        className={`inline-flex h-14 w-14 items-center justify-center rounded-full border shadow-[0_15px_35px_rgba(0,0,0,0.18)] backdrop-blur transition ${baseClassName}`}
         aria-label="Toggle music"
       >
-        {musicOn ? <Pause size={18} /> : <Music2 size={18} />}
-      </button>
-      <button
-        type="button"
-        onClick={handleShare}
-        className={`inline-flex h-11 items-center gap-2 rounded-full border px-4 text-sm font-medium shadow-lg backdrop-blur transition ${buttonClassName}`}
+        <span className="text-lg leading-none">{musicOn ? "??" : "??"}</span>
+      </motion.button>
+
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noreferrer"
+        className="inline-flex h-14 w-14 items-center justify-center rounded-full border border-emerald-500/20 bg-emerald-500 text-white shadow-[0_15px_35px_rgba(16,185,129,0.28)] transition hover:-translate-y-0.5"
+        aria-label="Share on WhatsApp"
       >
-        <Share2 size={16} />
-        {shareState === "copied" ? "Copied" : "Share"}
-      </button>
+        <MessageCircle size={20} />
+      </a>
+
+      <motion.button
+        whileTap={{ scale: 0.96 }}
+        whileHover={{ y: -2 }}
+        type="button"
+        onClick={onCopyLink}
+        className={`relative inline-flex h-14 min-w-14 items-center justify-center rounded-full border px-4 shadow-[0_15px_35px_rgba(0,0,0,0.18)] backdrop-blur transition ${baseClassName}`}
+      >
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.span
+            key={copied ? "copied" : "share"}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            className="inline-flex items-center gap-2 text-sm font-medium"
+          >
+            {copied ? <Link2 size={16} /> : <Share2 size={16} />}
+            {copied ? "Copied" : "Copy"}
+          </motion.span>
+        </AnimatePresence>
+      </motion.button>
     </div>
   );
 };
 
 export default InviteControls;
+
+

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface CountdownProps {
   weddingDate: string;
@@ -39,13 +40,25 @@ const WeddingCountdown = ({
   return (
     <div className={`grid grid-cols-2 gap-3 sm:grid-cols-4 ${className}`}>
       {Object.entries(timeLeft).map(([label, value]) => (
-        <div
+        <motion.div
           key={label}
-          className={`rounded-[1.5rem] border border-black/5 px-4 py-5 text-center shadow-sm backdrop-blur ${itemClassName}`}
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          className={`rounded-[1.75rem] border border-black/5 px-4 py-5 text-center shadow-[0_20px_45px_rgba(0,0,0,0.08)] backdrop-blur ${itemClassName}`}
         >
-          <div className="text-3xl font-semibold sm:text-4xl">{value}</div>
+          <AnimatePresence mode="popLayout" initial={false}>
+            <motion.div
+              key={`${label}-${value}`}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="text-3xl font-semibold sm:text-4xl"
+            >
+              {value}
+            </motion.div>
+          </AnimatePresence>
           <div className="mt-1 text-xs uppercase tracking-[0.35em] text-current/55">{label}</div>
-        </div>
+        </motion.div>
       ))}
     </div>
   );

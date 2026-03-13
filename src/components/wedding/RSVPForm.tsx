@@ -24,7 +24,7 @@ const RSVPForm = ({
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
-          className="rounded-[2rem] border border-black/5 bg-white/85 p-8 shadow-lg backdrop-blur"
+          className="rounded-[2rem] border border-black/5 bg-white/85 p-8 shadow-[0_22px_55px_rgba(0,0,0,0.12)] backdrop-blur"
         >
           <div className="mb-8 text-center">
             <p className="text-sm uppercase tracking-[0.35em] text-current/50">Celebrate with us</p>
@@ -35,41 +35,27 @@ const RSVPForm = ({
             <input
               required
               placeholder="Your name"
-              className="rounded-2xl border border-black/10 bg-white px-4 py-3 outline-none transition focus:border-black/30"
+              className="rounded-2xl border border-black/10 bg-white px-4 py-4 outline-none transition focus:-translate-y-0.5 focus:border-black/30"
             />
             <input
-              required
-              type="tel"
-              placeholder="Phone number"
-              className="rounded-2xl border border-black/10 bg-white px-4 py-3 outline-none transition focus:border-black/30"
-            />
-            <select
-              required
-              className="rounded-2xl border border-black/10 bg-white px-4 py-3 outline-none transition focus:border-black/30"
-              defaultValue=""
-            >
-              <option value="" disabled>
-                Attendance
-              </option>
-              <option value="attending">Joyfully attending</option>
-              <option value="virtual">Joining virtually</option>
-              <option value="unable">Unable to attend</option>
-            </select>
-            <input
+              type="number"
+              min="1"
               placeholder="Number of guests"
-              className="rounded-2xl border border-black/10 bg-white px-4 py-3 outline-none transition focus:border-black/30"
+              className="rounded-2xl border border-black/10 bg-white px-4 py-4 outline-none transition focus:-translate-y-0.5 focus:border-black/30"
             />
             <textarea
               placeholder="Blessings / message"
               rows={4}
-              className="sm:col-span-2 rounded-2xl border border-black/10 bg-white px-4 py-3 outline-none transition focus:border-black/30"
+              className="sm:col-span-2 rounded-2xl border border-black/10 bg-white px-4 py-4 outline-none transition focus:-translate-y-0.5 focus:border-black/30"
             />
-            <button
+            <motion.button
+              whileHover={{ y: -2, scale: 1.01 }}
+              whileTap={{ scale: 0.98 }}
               type="submit"
-              className={`sm:col-span-2 rounded-full px-6 py-3 text-sm font-semibold transition hover:opacity-90 ${accentClassName}`}
+              className={`sm:col-span-2 rounded-full px-6 py-4 text-sm font-semibold shadow-[0_16px_35px_rgba(0,0,0,0.12)] transition hover:opacity-90 ${accentClassName}`}
             >
               Send RSVP
-            </button>
+            </motion.button>
           </form>
 
           {submitted ? (
