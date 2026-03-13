@@ -15,6 +15,9 @@ import PeacockPreview from "./pages/previews/PeacockPreview";
 import RusticPreview from "./pages/previews/RusticPreview";
 import DestinationPreview from "./pages/previews/DestinationPreview";
 import BollywoodPreview from "./pages/previews/BollywoodPreview";
+import ScrollToTop from "./components/ScrollToTop";
+import SubhalekhaRoyale from "./pages/previews/SubhalekhaRoyale";
+import TemplatesPage from "./pages/TemplatesPage";
 
 const queryClient = new QueryClient();
 
@@ -24,8 +27,12 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollToTop />
+
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/templates" element={<TemplatesPage />} />
+          <Route path="/preview/royalTelugu" element={<SubhalekhaRoyale />} />
           <Route path="/preview/classic" element={<ClassicPreview />} />
           <Route path="/preview/modern" element={<ModernPreview />} />
           <Route path="/preview/festive" element={<FestivePreview />} />
@@ -36,7 +43,6 @@ const App = () => (
           <Route path="/preview/rustic" element={<RusticPreview />} />
           <Route path="/preview/destination" element={<DestinationPreview />} />
           <Route path="/preview/bollywood" element={<BollywoodPreview />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
