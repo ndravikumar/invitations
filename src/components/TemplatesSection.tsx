@@ -10,7 +10,7 @@ const TemplatesSection = () => {
             Premium <span className="text-gradient-gold">Wedding Templates</span>
           </h2>
           <p className="section-subheading">
-            Three polished invitation systems built on reusable components, dynamic data, and mobile-first interactions.
+            Classic celebration layouts and new developer-themed invitations built on reusable components, dynamic data, and mobile-first interactions.
           </p>
         </div>
 

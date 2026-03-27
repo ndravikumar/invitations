@@ -15,6 +15,9 @@ import PeacockPreview from "./pages/previews/PeacockPreview";
 import RusticPreview from "./pages/previews/RusticPreview";
 import DestinationPreview from "./pages/previews/DestinationPreview";
 import BollywoodPreview from "./pages/previews/BollywoodPreview";
+import DevPortfolioPreview from "./pages/previews/DevPortfolioPreview";
+import DevTerminalPreview from "./pages/previews/DevTerminalPreview";
+import DevVSCodePreview from "./pages/previews/DevVSCodePreview";
 import ScrollToTop from "./components/ScrollToTop";
 import SubhalekhaRoyale from "./pages/previews/SubhalekhaRoyale";
 import TemplatesPage from "./pages/TemplatesPage";
@@ -43,6 +46,9 @@ const App = () => (
           <Route path="/preview/rustic" element={<RusticPreview />} />
           <Route path="/preview/destination" element={<DestinationPreview />} />
           <Route path="/preview/bollywood" element={<BollywoodPreview />} />
+          <Route path="/preview/dev-vscode" element={<DevVSCodePreview />} />
+          <Route path="/preview/dev-terminal" element={<DevTerminalPreview />} />
+          <Route path="/preview/dev-portfolio" element={<DevPortfolioPreview />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

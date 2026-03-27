@@ -1,7 +1,13 @@
 import templateClassic from "@/assets/template-classic.jpg";
+import templateDevPortfolio from "@/assets/template-dev-portfolio.svg";
+import templateDevTerminal from "@/assets/template-dev-terminal.svg";
+import templateDevVSCode from "@/assets/template-dev-vscode.svg";
 import templateModern from "@/assets/template-modern.jpg";
 import templateFestive from "@/assets/template-festive.jpg";
 import type { WeddingTemplateData } from "@/data/weddingData";
+import DevPortfolio from "./DevPortfolio";
+import DevTerminal from "./DevTerminal";
+import DevVSCode from "./DevVSCodeInteractive";
 import SubhalekhaClassic from "./SubhalekhaClassic";
 import ModernFlipInvite from "./ModernFlipInvite";
 import FestiveSouthIndian from "./FestiveSouthIndian";
@@ -44,6 +50,33 @@ export const premiumTemplates: TemplateDefinition[] = [
     features: ["Decorative SVG motifs", "Red, gold, and green palette", "Mobile-first celebration layout"],
     Component: FestiveSouthIndian,
   },
+  {
+    slug: "dev-vscode",
+    name: "VS Code Wedding",
+    description: "Premium editor-inspired invitation with a file explorer, animated code blocks, JSON event rendering, and component-style gallery modules.",
+    image: templateDevVSCode,
+    previewUrl: "/preview/dev-vscode",
+    features: ["Typing animation", "Code highlighting", "Dark and light workspace modes"],
+    Component: DevVSCode,
+  },
+  {
+    slug: "dev-terminal",
+    name: "Terminal Wedding",
+    description: "Full-screen terminal invite with boot logs, command-style sections, a live countdown, and a replayable wedding script sequence.",
+    image: templateDevTerminal,
+    previewUrl: "/preview/dev-terminal",
+    features: ["Terminal log storytelling", "Run Wedding Script action", "Command-line RSVP flow"],
+    Component: DevTerminal,
+  },
+  {
+    slug: "dev-portfolio",
+    name: "Developer Portfolio Wedding",
+    description: "Modern portfolio-style wedding microsite with project-based love story cards, elegant event sections, and polished RSVP contact flow.",
+    image: templateDevPortfolio,
+    previewUrl: "/preview/dev-portfolio",
+    features: ["Portfolio hero layout", "Scroll-based section reveals", "Premium gallery and contact styling"],
+    Component: DevPortfolio,
+  },
 ];
 
-export { SubhalekhaClassic, ModernFlipInvite, FestiveSouthIndian };
+export { SubhalekhaClassic, ModernFlipInvite, FestiveSouthIndian, DevVSCode, DevTerminal, DevPortfolio };

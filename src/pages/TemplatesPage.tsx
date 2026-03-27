@@ -21,7 +21,7 @@ const TemplatesPage = () => {
           <p className="text-sm uppercase tracking-[0.45em] text-stone-500">Premium Wedding Templates</p>
           <h1 className="mt-4 text-4xl font-semibold sm:text-5xl">Choose a Design Direction</h1>
           <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-stone-600 sm:text-base">
-            Preview three reusable wedding website templates powered by a shared data source, reusable sections, and mobile-first layouts.
+            Browse classic invitation systems and the new developer theme templates, all powered by shared wedding data, reusable sections, and mobile-first layouts.
           </p>
         </div>
 

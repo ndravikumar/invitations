@@ -4,11 +4,25 @@ import { motion } from "framer-motion";
 interface RSVPFormProps {
   title?: string;
   accentClassName?: string;
+  sectionClassName?: string;
+  cardClassName?: string;
+  fieldClassName?: string;
+  description?: string;
+  eyebrow?: string;
+  buttonLabel?: string;
+  noteClassName?: string;
 }
 
 const RSVPForm = ({
   title = "RSVP",
   accentClassName = "bg-amber-500 text-stone-950",
+  sectionClassName = "",
+  cardClassName = "rounded-[2rem] border border-black/5 bg-white/85 p-8 shadow-[0_22px_55px_rgba(0,0,0,0.12)] backdrop-blur",
+  fieldClassName = "rounded-2xl border border-black/10 bg-white px-4 py-4 outline-none transition focus:-translate-y-0.5 focus:border-black/30",
+  description,
+  eyebrow = "Celebrate with us",
+  buttonLabel = "Send RSVP",
+  noteClassName = "text-emerald-700",
 }: RSVPFormProps) => {
   const [submitted, setSubmitted] = useState(false);
 
@@ -18,35 +32,38 @@ const RSVPForm = ({
   };
 
   return (
-    <section id="rsvp" className="px-4 py-16 sm:px-6">
+    <section id="rsvp" className={`px-4 py-16 sm:px-6 ${sectionClassName}`}>
       <div className="mx-auto max-w-3xl">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
-          className="rounded-[2rem] border border-black/5 bg-white/85 p-8 shadow-[0_22px_55px_rgba(0,0,0,0.12)] backdrop-blur"
+          className={cardClassName}
         >
           <div className="mb-8 text-center">
-            <p className="text-sm uppercase tracking-[0.35em] text-current/50">Celebrate with us</p>
+            <p className="text-sm uppercase tracking-[0.35em] text-current/50">{eyebrow}</p>
             <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">{title}</h2>
+            {description ? (
+              <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-current/70">{description}</p>
+            ) : null}
           </div>
 
           <form className="grid gap-4 sm:grid-cols-2" onSubmit={handleSubmit}>
             <input
               required
               placeholder="Your name"
-              className="rounded-2xl border border-black/10 bg-white px-4 py-4 outline-none transition focus:-translate-y-0.5 focus:border-black/30"
+              className={fieldClassName}
             />
             <input
               type="number"
               min="1"
               placeholder="Number of guests"
-              className="rounded-2xl border border-black/10 bg-white px-4 py-4 outline-none transition focus:-translate-y-0.5 focus:border-black/30"
+              className={fieldClassName}
             />
             <textarea
               placeholder="Blessings / message"
               rows={4}
-              className="sm:col-span-2 rounded-2xl border border-black/10 bg-white px-4 py-4 outline-none transition focus:-translate-y-0.5 focus:border-black/30"
+              className={`sm:col-span-2 ${fieldClassName}`}
             />
             <motion.button
               whileHover={{ y: -2, scale: 1.01 }}
@@ -54,12 +71,12 @@ const RSVPForm = ({
               type="submit"
               className={`sm:col-span-2 rounded-full px-6 py-4 text-sm font-semibold shadow-[0_16px_35px_rgba(0,0,0,0.12)] transition hover:opacity-90 ${accentClassName}`}
             >
-              Send RSVP
+              {buttonLabel}
             </motion.button>
           </form>
 
           {submitted ? (
-            <p className="mt-4 text-center text-sm text-emerald-700">
+            <p className={`mt-4 text-center text-sm ${noteClassName}`}>
               RSVP captured locally for preview. Connect this form to your backend or WhatsApp flow.
             </p>
           ) : null}

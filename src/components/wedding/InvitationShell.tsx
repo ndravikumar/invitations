@@ -16,6 +16,11 @@ interface InvitationShellProps {
   overlayClassName?: string;
   cardClassName?: string;
   darkControls?: boolean;
+  theme?: "dark" | "light";
+  onToggleTheme?: () => void;
+  description?: string;
+  openLabel?: string;
+  invitationLabel?: string;
 }
 
 export default function InvitationShell({
@@ -26,6 +31,11 @@ export default function InvitationShell({
   overlayClassName = "bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_50%),linear-gradient(180deg,rgba(30,10,18,0.94),rgba(8,8,12,0.96))]",
   cardClassName = "bg-white/10 border-white/15 text-white",
   darkControls = true,
+  theme = "dark",
+  onToggleTheme,
+  description = "Step into a cinematic invitation experience with music, motion, and celebration details.",
+  openLabel = "Open Invitation",
+  invitationLabel = "You are invited to the wedding of",
 }: InvitationShellProps) {
   const [opened, setOpened] = useState(false);
   const [musicOn, setMusicOn] = useState(false);
@@ -55,9 +65,8 @@ export default function InvitationShell({
     }
   };
 
-  const handleOpen = async () => {
+  const handleOpen = () => {
     setOpened(true);
-    await startMusic();
     window.setTimeout(() => {
       const hero = document.getElementById("invitation-start");
       if (hero) {
@@ -110,6 +119,8 @@ export default function InvitationShell({
           onCopyLink={handleCopyLink}
           whatsappUrl={whatsappUrl}
           copied={copied}
+          onToggleTheme={onToggleTheme}
+          theme={theme}
         />
       ) : null}
 
@@ -141,14 +152,13 @@ export default function InvitationShell({
               >
                 <div className="pointer-events-none absolute inset-3 rounded-[1.6rem] border border-current/15" />
                 <p className="text-sm uppercase tracking-[0.45em] text-current/70">
-                  You are invited to the wedding of
+                  {invitationLabel}
                 </p>
                 <h1 className="mt-8 text-4xl font-semibold leading-tight sm:text-5xl">
                   {brideName} <span className="mx-2 text-rose-300">&hearts;</span> {groomName}
                 </h1>
                 <p className="mx-auto mt-6 max-w-md text-sm leading-7 text-current/75 sm:text-base">
-                  Step into a cinematic invitation experience with music, motion,
-                  and celebration details.
+                  {description}
                 </p>
                 <motion.button
                   whileHover={{ y: -3, scale: 1.01 }}
@@ -157,7 +167,7 @@ export default function InvitationShell({
                   onClick={handleOpen}
                   className="mt-10 inline-flex min-h-14 items-center justify-center rounded-full bg-white px-8 py-4 text-base font-semibold text-stone-900 shadow-[0_18px_40px_rgba(255,255,255,0.18)]"
                 >
-                  Open Invitation
+                  {openLabel}
                 </motion.button>
               </motion.div>
             </div>

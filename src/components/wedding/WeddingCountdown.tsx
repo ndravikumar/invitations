@@ -5,6 +5,9 @@ interface CountdownProps {
   weddingDate: string;
   className?: string;
   itemClassName?: string;
+  gridClassName?: string;
+  valueClassName?: string;
+  labelClassName?: string;
 }
 
 const getTimeLeft = (date: string) => {
@@ -26,6 +29,9 @@ const WeddingCountdown = ({
   weddingDate,
   className = "",
   itemClassName = "bg-white/70",
+  gridClassName = "grid-cols-2 sm:grid-cols-4",
+  valueClassName = "text-3xl font-semibold sm:text-4xl",
+  labelClassName = "mt-1 text-xs uppercase tracking-[0.35em] text-current/55",
 }: CountdownProps) => {
   const [timeLeft, setTimeLeft] = useState(() => getTimeLeft(weddingDate));
 
@@ -38,7 +44,7 @@ const WeddingCountdown = ({
   }, [weddingDate]);
 
   return (
-    <div className={`grid grid-cols-2 gap-3 sm:grid-cols-4 ${className}`}>
+    <div className={`grid gap-3 ${gridClassName} ${className}`}>
       {Object.entries(timeLeft).map(([label, value]) => (
         <motion.div
           key={label}
@@ -52,12 +58,12 @@ const WeddingCountdown = ({
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="text-3xl font-semibold sm:text-4xl"
+              className={valueClassName}
             >
               {value}
             </motion.div>
           </AnimatePresence>
-          <div className="mt-1 text-xs uppercase tracking-[0.35em] text-current/55">{label}</div>
+          <div className={labelClassName}>{label}</div>
         </motion.div>
       ))}
     </div>

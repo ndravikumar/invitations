@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { MessageCircle, Link2, Share2 } from "lucide-react";
+import { Link2, MessageCircle, MoonStar, Share2, SunMedium, Volume2, VolumeX } from "lucide-react";
 
 interface InviteControlsProps {
   musicOn: boolean;
@@ -8,6 +8,8 @@ interface InviteControlsProps {
   whatsappUrl: string;
   dark?: boolean;
   copied?: boolean;
+  onToggleTheme?: () => void;
+  theme?: "dark" | "light";
 }
 
 const InviteControls = ({
@@ -17,6 +19,8 @@ const InviteControls = ({
   whatsappUrl,
   dark = false,
   copied = false,
+  onToggleTheme,
+  theme = "dark",
 }: InviteControlsProps) => {
   const baseClassName = dark
     ? "border-white/15 bg-black/20 text-white hover:bg-black/35"
@@ -32,8 +36,21 @@ const InviteControls = ({
         className={`inline-flex h-14 w-14 items-center justify-center rounded-full border shadow-[0_15px_35px_rgba(0,0,0,0.18)] backdrop-blur transition ${baseClassName}`}
         aria-label="Toggle music"
       >
-        <span className="text-lg leading-none">{musicOn ? "??" : "??"}</span>
+        {musicOn ? <Volume2 size={20} /> : <VolumeX size={20} />}
       </motion.button>
+
+      {onToggleTheme ? (
+        <motion.button
+          whileTap={{ scale: 0.96 }}
+          whileHover={{ y: -2 }}
+          type="button"
+          onClick={onToggleTheme}
+          className={`inline-flex h-14 w-14 items-center justify-center rounded-full border shadow-[0_15px_35px_rgba(0,0,0,0.18)] backdrop-blur transition ${baseClassName}`}
+          aria-label="Toggle theme"
+        >
+          {theme === "dark" ? <SunMedium size={20} /> : <MoonStar size={20} />}
+        </motion.button>
+      ) : null}
 
       <a
         href={whatsappUrl}
